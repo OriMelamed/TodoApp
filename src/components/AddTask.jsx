@@ -15,20 +15,21 @@ export default function AddTask({ addTask }) {
     return (
         <div>
             <form onSubmit={handleSubmit(handleClick)}>
-                <div>
-                    {errors.task && <span>This field is required</span>}
-                    <input className=" bg-slate-100 rounded-md p-4 m-4"
-                        type="text"
-                        placeholder="Create a new todo"
-                        {...register("task", { required: true })}
-                    />
+                <div className='flex flex-col items-center'>
+                    <div className=' inline-grid'>
+                        {errors.task && <span className=' text-red-600 px-4 mx-4'>This field is required</span>}
+                        <input className=" bg-slate-100 rounded-md p-4 m-4"
+                            type="text"
+                            placeholder="Create a new todo"
+                            {...register("task", { required: true })}
+                        />
+                    </div>
+                    <button
+                        className='  bg-blue-600 font-bold px-6 py-2 rounded-full'
+                    >
+                        Add Task
+                    </button>
                 </div>
-
-                <button
-                    className='  bg-blue-600 font-bold px-6 py-2 rounded-full'
-                >
-                    Add Task
-                </button>
             </form>
         </div >
     )

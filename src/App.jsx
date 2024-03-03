@@ -17,6 +17,12 @@ export default function App() {
     setTaskList(updatedList)
   }
 
+  const handlerEditTask = ({ task, index }) => {
+    const updatedList = [...taskList];
+    updatedList[index] = task
+    setTaskList(updatedList)
+
+  }
 
   return (
     <div className='flex flex-col items-center m-10'>
@@ -25,7 +31,7 @@ export default function App() {
         <AddTask addTask={handleAddTask} />
       </div>
       <div>
-        <TaskList tasks={taskList} onDelete={handleDeleteTask} />
+        <TaskList tasks={taskList} onDelete={handleDeleteTask} onEdit={handlerEditTask} />
       </div>
     </div>
   )

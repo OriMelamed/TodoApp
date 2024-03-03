@@ -1,17 +1,41 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
+import { FaDeleteLeft } from "react-icons/fa6";
+import { CiEdit } from "react-icons/ci";
+import { MdOutlineDownloadDone } from "react-icons/md";
 
-export default function TaskItem({ description, onDelete, index }) {
+export default function TaskItem({ description, onDelete, onEdit, index }) {
+    const [editTask, setEditTask] = useState(false)
+    const taskRef = useRef()
+
+
+    const handlerEdit = (index) => {
+        if (taskRef.current.value !== "") {
+            setEditTask(!editTask)
+            onEdit({ task: taskRef.current.value, index: index })
+        }
+    }
+
     return (
         <div>
-            <ul>
-                <div className=" flex bg-slate-100 m-4 py-4 pl-12 pr-4 rounded-md">
-                    <li className="self-center font-semibold pr-10 mr-6 grow">{description}</li>
-                    <button
-                        className=" bg-red-500 text-white p-2 mx-1 rounded-md font-bold hover:bg-red-600"
-                        onClick={() => onDelete(index)}
-                    >Delete</button>
-                </div>
-            </ul>
+            {editTask ?
+                <ul>
+                    <div className=" flex bg-slate-100 m-4 py-4 pl-12 pr-4 rounded-md">
+                        <input ref={taskRef} placeholder={description} />
+                        <MdOutlineDownloadDone size={25} className='ml-1' onClick={() => handlerEdit(index)} />
+                    </div>
+                </ul>
+                :
+                <ul>
+                    <div className=" flex bg-slate-100 m-4 py-4 pl-12 pr-4 rounded-md">
+                        <li className="self-center font-semibold pr-10 mr-6 grow">{description}</li>
+                        <FaDeleteLeft
+                            size={25}
+                            onClick={() => onDelete(index)}
+                        />
+                        <CiEdit size={25} className=' ml-1' onClick={() => setEditTask(!editTask)} />
+                    </div>
+                </ul>
+            }
         </div>
     )
 }
