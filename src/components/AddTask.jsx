@@ -1,19 +1,20 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 
 export default function AddTask({ addTask }) {
     const [taskItem, setTaskItem] = useState('');
+    const taskRef = useRef()
+
 
     const handleClick = () => {
-        addTask(taskItem)
-        setTaskItem('')
+        addTask(taskRef.current.value)
+        taskRef.current.value = ''
     }
 
     return (
         <div>
             <input className=" bg-slate-100 rounded-md p-4 m-4"
                 type="text"
-                onChange={(e) => setTaskItem(e.target.value)}
-                value={taskItem}
+                ref={taskRef}
                 placeholder="Create a new todo"
             />
             <button
